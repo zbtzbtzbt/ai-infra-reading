@@ -14,7 +14,7 @@ Rohan Choudhury¹ · Guanglei Zhu\*¹ · Sihan Liu\*¹ · Koichiro Niinuma² · 
 
 本译本依据 [arXiv:2411.05222v1](https://arxiv.org/abs/2411.05222v1)（2024 年 11 月 7 日提交）及其 LaTeX 源文件制作，涵盖摘要、正文、致谢、56 条参考文献及附录 A、B。中文译文经过校订：修正明显笔误、合并重复段落，并按方法定义和实验表格整理不一致的文字结论；具体依据见[校订与核对记录](translation-notes.zh.md)。这是未经原作者审定的非官方整理译本。原论文、中文翻译和核对记录均采用 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 许可。
 
-6 幅图保留原图，并附中文图注和标签对照；4 个编号公式使用高清裁图，另附可展开的原始 LaTeX 源码；5 个表格重排为可编辑的中文表格，实验数值保留原样。
+6 幅图保留原图，并附中文图注和标签对照；4 个编号公式使用高清裁图；5 个表格重排为可编辑的中文表格，实验数值保留原样。
 
 论文项目页：[https://rccchoudhury.github.io/projects/rlt/](https://rccchoudhury.github.io/projects/rlt/)
 
@@ -105,31 +105,11 @@ Rohan Choudhury¹ · Guanglei Zhu\*¹ · Sihan Liu\*¹ · Koichiro Niinuma² · 
 
 ![公式（1）：静态图像块判定](assets/equation1.png)
 
-<details>
-<summary>公式（1）的 LaTeX 源码</summary>
-
-```latex
-\|P^{t_2+D_t-1}_{xy} - P^{t_1}_{xy}\|_1 < \tau
-\tag{1}
-```
-
-</details>
-
 其中，$`P^{t_2+D_t-1}_{xy}`$ 是 $`P_2`$ 中时间上最后一个空间裁剪图块，$`P^{t_1}_{xy}`$ 是 $`P_1`$ 中第一个空间裁剪图块。该操作将 $`P_1`$ 的“起点”与 $`P_2`$ 的“终点”进行比较，其思路是：如果词元 $`P_1`$ 的第一个裁剪图块与词元 $`P_2`$ 的最后一个裁剪图块匹配，那么中间的图像块很可能也匹配。需要指出的是，$`\tau`$ 是一个需要调节的超参数，但它**与数据集无关**；它仅表示图像块之间的变化允许达到多大程度，超过这一程度才会被视为不同。$`\tau`$ 控制速度与准确率之间的权衡；较大的取值虽然能够显著减少更多词元，却也会将视觉上可以感知差异的词元视为相同，从而降低准确率。由于可能存在不可感知的伪影，我们使用 $`\tau>0`$，并遵循标准做法，在比较图像块之前执行 ImageNet 归一化。通常我们使用 $`\tau=0.1`$，并在第 4.3 节和附录 B 中提供关于其影响的实验和可视化。
 
 **剪枝过程。** 为识别所有静态词元，我们对 $`\mathbf{P}`$ 中所有时间上相邻的图像块对执行上述比较，得到它们的差异，剪除重复的静态图像块，保留每段游程的起始图像块及发生变化的图像块。我们始终完整保留第一帧，因为没有此前的图像块可供比较。将保留位置记为 1、剪除位置记为 0，得到二值保留掩码 $`M_{\mathrm{static}}`$，随后按下式应用：
 
 ![公式（2）：应用保留掩码](assets/equation2.png)
-
-<details>
-<summary>公式（2）的 LaTeX 源码</summary>
-
-```latex
-\mathbf{\textbf{P}'} = \mathbf{P} \circ M_{\mathrm{static}}
-\tag{2}
-```
-
-</details>
 
 其中，$`P'`$ 包含 $`N_{P'}`$ 个词元，而 $`P`$ 由 $`N_P`$ 个词元构成。注意，$`N_{P'}\leq N_P`$ 始终成立；使用 RLT 时，词元数量不会超过标准词元化过程。如果没有冗余图像块可供剪除，输入词元数量就与标准词元化相同。RLT 本身的开销很小，因为整个过程可以用 GPU 上可并行的 PyTorch 操作 [32] 实现，因此在存在可压缩冗余内容时可以加速训练和推理。
 
@@ -147,29 +127,9 @@ RLT 的简单性是一大优势：与其他方法不同，我们可以利用 Tra
 
 ![公式（3）：计算游程长度](assets/equation3.png)
 
-<details>
-<summary>公式（3）的 LaTeX 源码</summary>
-
-```latex
-\ell_i = \min_{t'} (t' - t), \quad\mathrm{where} \quad M_{\mathrm{static}}(x, y, t') = 1, t' > t
-\tag{3}
-```
-
-</details>
-
 这一操作也可以在 GPU 上高效实现，不增加开销。随后，完整的位置编码为：
 
 ![公式（4）：完整位置编码](assets/equation4.png)
-
-<details>
-<summary>公式（4）的 LaTeX 源码</summary>
-
-```latex
-\phi(T_i) = \phi_{xyt}(T_i) + \phi_L[\ell_i]
-\tag{4}
-```
-
-</details>
 
 其中，$`\phi_L[\ell_i]`$ 表示索引操作。运行图像块嵌入网络 $`\mathcal{E}`$ 后，我们将位置编码 $`\phi(T_i)`$ 加到每个词元上。与剪枝过程不同，由于这里使用可学习的长度编码 $`\phi_L`$，我们将梯度传播到位置嵌入，使模型能够在微调期间学习如何最优地编码可变长度词元。
 
