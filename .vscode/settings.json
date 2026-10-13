@@ -1,0 +1,26 @@
+{
+  "markdown.preview.fontFamily": "-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', 'Microsoft YaHei', sans-serif",
+  "markdown.preview.fontSize": 16,
+  "markdown.preview.lineHeight": 1.85,
+  "markdown.preview.markEditorSelection": false,
+  "markdown.preview.scrollPreviewWithEditor": true,
+  "markdown.preview.scrollEditorWithPreview": true,
+  "markdown.preview.doubleClickToSwitchToEditor": false,
+  "markdown.preview.breaks": false,
+  "markdown.math.enabled": true,
+  "markdown.styles": [".vscode/markdown-reading.css"],
+
+  "markdown-preview-github-styles.colorTheme": "light",
+  "markdown-preview-github-styles.lightTheme": "light",
+
+  "[markdown]": {
+    "editor.wordWrap": "on",
+    "editor.lineHeight": 24,
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "off",
+      "other": "off"
+    },
+    "editor.minimap.enabled": false
+  }
+}

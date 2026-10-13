@@ -1,0 +1,60 @@
+body {
+  max-width: 880px;
+  margin: 0 auto !important;
+  padding: 32px 40px 80px !important;
+  text-align: justify;
+  letter-spacing: 0.02em;
+}
+
+h1, h2, h3, h4 {
+  line-height: 1.4;
+  margin-top: 1.8em;
+  margin-bottom: 0.7em;
+}
+
+p, li {
+  margin-bottom: 0.9em;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  margin: 1.2em auto;
+  border-radius: 4px;
+}
+
+table {
+  display: block;
+  overflow-x: auto;
+  margin: 1.2em 0;
+  font-size: 0.92em;
+}
+
+pre, code {
+  font-family: 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 0.88em;
+}
+
+details {
+  margin: -0.4em 0 1.2em;
+  padding: 0.3em 0.8em;
+  border-left: 3px solid rgba(128, 128, 128, 0.35);
+  font-size: 0.9em;
+  opacity: 0.85;
+}
+
+details summary {
+  cursor: pointer;
+  user-select: none;
+}
+
+blockquote {
+  margin-left: 0;
+  padding: 0.2em 1em;
+}
+
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.3em 0;
+}
