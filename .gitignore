@@ -1,0 +1,11 @@
+# macOS
+.DS_Store
+._*
+
+# Local scratch files and credentials
+work/
+tmp/
+.cache/
+.env
+.env.*
+!.env.example
