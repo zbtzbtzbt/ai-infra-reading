@@ -30,6 +30,7 @@ templates/
 | --- | --- | --- | --- |
 | RLT：Don't Look Twice | [arXiv:2411.05222v1](https://arxiv.org/abs/2411.05222v1)，NeurIPS 2024 | VLM；视频词元压缩 | [条目与阅读说明](papers/vlm/run-length-tokenization/README.md) · [中文 Markdown](papers/vlm/run-length-tokenization/translation.zh.md) |
 | Ariadne Attention：注意力头语义专门化与混合 ViT 注意力 | [arXiv:2608.28383v1](https://arxiv.org/abs/2608.28383v1)，2026-08-28 | VLM；混合注意力；视觉编码器效率 | [条目与阅读说明](papers/vlm/ariadne-attention/README.md) · [中文 Markdown](papers/vlm/ariadne-attention/translation.zh.md) · [核对记录](papers/vlm/ariadne-attention/translation-notes.zh.md) |
+| NAT：邻域注意力 Transformer | [arXiv:2204.07143v5](https://arxiv.org/abs/2204.07143v5)，CVPR 2023 | VLM 视觉编码器基础；二维滑动窗口注意力 | [条目与阅读说明](papers/vlm/neighborhood-attention-transformer/README.md) · [中文 Markdown](papers/vlm/neighborhood-attention-transformer/translation.zh.md) · [核对记录](papers/vlm/neighborhood-attention-transformer/translation-notes.zh.md) |
 
 上述中文翻译均为非官方整理译本，具体翻译范围、校订方式与待核实问题见各条目的阅读说明和核对记录。论文报告的实验结果属于原作者主张，本仓库尚未复现其代码或实验。
 
